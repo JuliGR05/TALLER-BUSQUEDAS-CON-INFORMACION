@@ -1,5 +1,7 @@
 package conmutacion;
 
+import java.util.List;
+
 public class Main {
 
     /**
@@ -40,6 +42,43 @@ public class Main {
         return red;
     }
 
+    /** Escenario A: red estable, un mensaje A -> B de 5 paquetes, sin eventos. */
+    public static void escenarioA() {
+        Red red = construirRed();
+        List<Mensaje> mensajes = List.of(
+                new Mensaje(1, red.getNodo("A"), red.getNodo("B"), 5));
+        List<Evento> eventos = List.of();
+        ejecutar("ESCENARIO A: red estable", red, mensajes, eventos);
+    }
+
+    /** Escenario B: congestion. Tras el paquete 2, el enlace B-R3 pasa a congestion 0.5. */
+    public static void escenarioB() {
+        Red red = construirRed();
+        List<Mensaje> mensajes = List.of(
+                new Mensaje(1, red.getNodo("A"), red.getNodo("B"), 4),
+                new Mensaje(2, red.getNodo("C"), red.getNodo("B"), 3));
+        List<Evento> eventos = List.of(
+                new Evento(2, "B", "R3", 0.5, true));
+        ejecutar("ESCENARIO B: congestion en B-R3 tras el paquete 2", red, mensajes, eventos);
+    }
+
+    /** Escenario C: caida. Tras el paquete 2, se cae el enlace A-R1. */
+    public static void escenarioC() {
+        Red red = construirRed();
+        List<Mensaje> mensajes = List.of(
+                new Mensaje(1, red.getNodo("A"), red.getNodo("B"), 5));
+        List<Evento> eventos = List.of(
+                new Evento(2, "A", "R1", 0.0, false));
+        ejecutar("ESCENARIO C: caida del enlace A-R1 tras el paquete 2", red, mensajes, eventos);
+    }
+
+    private static void ejecutar(String titulo, Red red, List<Mensaje> mensajes, List<Evento> eventos) {
+        System.out.println();
+        System.out.println("=== " + titulo + " ===");
+        List<Paquete> resultado = new Simulador(red).simular(mensajes, eventos);
+        SalidaConsola.imprimir(resultado);
+    }
+
     public static void main(String[] args) {
         Red red = construirRed();
 
@@ -53,6 +92,9 @@ public class Main {
                     e, e.getZona(), e.getLatenciaMs(), e.getProbCaida(),
                     e.getThroughputMbps(), e.peso());
         }
-        // TODO (#26, manana): escenarios A, B y C
+
+        escenarioA();
+        escenarioB();
+        escenarioC();
     }
 }
