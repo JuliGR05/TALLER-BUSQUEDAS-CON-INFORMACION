@@ -1,4 +1,4 @@
-package src.conmutacion;
+package conmutacion;
 
 public class Evento {
     private final int despuesDePaquete;

@@ -1,4 +1,4 @@
-package src.conmutacion;
+package conmutacion;
 
 import java.util.List;
 

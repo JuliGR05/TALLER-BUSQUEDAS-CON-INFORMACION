@@ -1,4 +1,4 @@
-package src.conmutacion;
+package conmutacion;
 
 /** Enlace no dirigido entre dos nodos. */
 public class Enlace {
