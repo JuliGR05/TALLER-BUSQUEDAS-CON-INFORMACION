@@ -2,6 +2,7 @@ package conmutacion;
 
 import java.util.List;
 
+/** Imprime en consola el orden de llegada y la ruta de cada paquete. */
 public class SalidaConsola {
 
     public static void imprimir(List<Paquete> paquetes) {
