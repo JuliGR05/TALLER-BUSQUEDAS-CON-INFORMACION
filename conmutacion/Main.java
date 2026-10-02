@@ -6,7 +6,7 @@ public class Main {
 
     /**
      * Red base: 4 routers de nucleo (R1-R4) y 3 usuarios de borde (A, B, C).
-     * Cada usuario se conecta a dos routers de nucleo, asi hay varios caminos
+     * Cada usuario se conecta a dos routers de nucleo, así hay varios caminos
      * posibles entre cualquier origen y destino y las rutas pueden cambiar.
      */
     public static Red construirRed() {

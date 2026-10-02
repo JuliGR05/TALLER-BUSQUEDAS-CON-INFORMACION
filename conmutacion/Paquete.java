@@ -3,6 +3,7 @@ package conmutacion;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Un paquete de un mensaje: lleva su numero, la ruta que tomo y sus tiempos. */
 public class Paquete {
     private final int idMensaje;
     private final int numero;

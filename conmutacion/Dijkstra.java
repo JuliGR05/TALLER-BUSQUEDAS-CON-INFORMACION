@@ -20,17 +20,17 @@ public class Dijkstra{
         // Si no hay distancia o es infinita, el destino es inalcanzable
         Double d = dist.get(destino);
         if(d == null || Double.isInfinite(d)){
-            return ruta; //ñista vacía
+            return ruta; // lista vacía
         }
 
-        //Se camina hacia atrás: destino, predecesor de esee y asi...
+        // Se camina hacia atrás: destino, predecesor de este y así...
         Nodo actual = destino;
         while (actual != null){
             ruta.add(actual);
             actual = pred.get(actual);
         }
 
-        //Quedó al revés (destino -> origen), se invierte
+        // Quedó al revés (destino -> origen), se invierte
         Collections.reverse(ruta);
         return ruta;
         }
@@ -52,6 +52,18 @@ public class Dijkstra{
     }
 
     public static Resultado ejecutar(Red red, Nodo origen) {
+        // Validar aqui evita que un origen ajeno a la red devuelva una ruta
+        // vacia en silencio, haciendolo pasar por "destino inalcanzable".
+        if (red == null) {
+            throw new IllegalArgumentException("La red no puede ser null");
+        }
+        if (origen == null) {
+            throw new IllegalArgumentException("El origen no puede ser null");
+        }
+        if (red.getNodo(origen.getId()) != origen) {
+            throw new IllegalArgumentException("El nodo origen " + origen + " no pertenece a la red");
+        }
+
         Resultado r = new Resultado();
 
         // 1. Inicialización: todo infinito y sin predecesor, menos el origen
@@ -95,6 +107,9 @@ public class Dijkstra{
     }
 
     public static List<Nodo> rutaMasCorta(Red red, Nodo origen, Nodo destino) {
+        if (destino == null) {
+            throw new IllegalArgumentException("El destino no puede ser null");
+        }
         return ejecutar(red, origen).rutaHasta(destino);
     }
 }
